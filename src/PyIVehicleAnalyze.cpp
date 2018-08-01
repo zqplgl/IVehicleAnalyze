@@ -32,7 +32,7 @@ BOOST_PYTHON_MODULE(_VehicleAnalyze)
             .def(vector_indexing_suite<vector<tracker::Tracker> >())
             .def("size",&vector<tracker::Tracker>::size);
 
-    class_<VehicleAnalyze::VehicleAnalyze>("VehicleAnalyze",no_init)
+    class_<VehicleAnalyze::VehicleAnalyze>("VehicleAnalyze",init<const string&,const int,const int,const int>())
             .def("input",&VehicleAnalyze::VehicleAnalyze::input)
             .def("get_trackers",&VehicleAnalyze::IVehicleAnalyze::getTracks);
 

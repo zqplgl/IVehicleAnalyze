@@ -12,10 +12,12 @@ include_directories(/usr/include/python2.7)
 
 find_library(track_lib TrackDP /home/zqp/mygithub/trackers_v2/lib)
 find_library(detect_lib IObjZoneDetect /home/zqp/mygithub/IObjZoneDetect/lib)
+find_library(boost_python_LIB boost_python)
+message(STATUS ${boost_python_LIB})
 find_package(OpenCV)
 
 add_library(_IVehicleAnalyze SHARED src/PyIVehicleAnalyze.cpp)
-target_link_libraries(_IVehicleAnalyze IVehicleAnalyze)
+target_link_libraries(_IVehicleAnalyze IVehicleAnalyze ${boost_python_LIB})
 
 add_library(IVehicleAnalyze SHARED src/VehicleAnalyze.cpp)
 target_link_libraries(IVehicleAnalyze ${track_lib} ${detect_lib} ${OpenCV_LIBS})
