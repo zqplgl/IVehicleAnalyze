@@ -9,7 +9,7 @@ namespace VehicleAnalyze
     {
         public:
             virtual void input(const string &filepath)=0;
-            virtual void getTracks(vector<tracker::Tracker> &trackers)=0;
+            virtual vector<tracker::Tracker> getTracks()=0;
             virtual ~IVehicleAnalyze(){}
     };
 
