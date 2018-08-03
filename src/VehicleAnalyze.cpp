@@ -19,7 +19,7 @@ namespace VehicleAnalyze
 
 
         detector = CreateObjZoneYoloV3Detector(temp_model_dir+"yolov3/yolov3.cfg",temp_model_dir+"yolov3/yolov3.weights",gpu_id);
-        confidence_threshold = 0,65;
+        confidence_threshold = 0.65;
         tracker = tracker::CreateITrackers();
     }
 
@@ -39,6 +39,7 @@ namespace VehicleAnalyze
             tracker_objs.push_back(obj);
         }
     }
+
     vector<tracker::Tracker> VehicleAnalyze::getTracks()
     {
         vector<tracker::Tracker> trackers;
@@ -50,9 +51,11 @@ namespace VehicleAnalyze
         vector<tracker::Object> tracker_objs;
         while(capture.read(frame))
         {
+            cout<<"process frame: "<<capindex<<endl;
             if(null_num < numnull)
             {
                 detector->Detect(frame,objs,confidence_threshold);
+                cout<<"objs: "<<objs.size()<<endl;
                 if (!objs.size())
                 {
                     null_num++;
