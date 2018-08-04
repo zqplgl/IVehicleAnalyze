@@ -9,7 +9,7 @@ namespace VehicleAnalyze
     using namespace ObjZoneDetect;
     using namespace cv;
 
-    VehicleAnalyze::VehicleAnalyze(const string& model_dir,const int gpu_id, const int freamskip,const int numnull):frameskip(frameskip),numnull(numnull),gpu_id(gpu_id)
+    VehicleAnalyze::VehicleAnalyze(const string& model_dir,const int gpu_id, const int frameskip,const int numnull):gpu_id(gpu_id),frameskip(frameskip),numnull(numnull)
     {
         string temp_model_dir = "";
         if(model_dir[model_dir.size()-1]=='/')
@@ -18,7 +18,7 @@ namespace VehicleAnalyze
             temp_model_dir = model_dir + "/";
 
 
-        detector = CreateObjZoneYoloV3Detector(temp_model_dir+"yolov3/yolov3.cfg",temp_model_dir+"yolov3/yolov3.weights",gpu_id);
+        detector = CreateObjZoneYoloV3Detector(temp_model_dir+"yolov3/yolov3.cfg",temp_model_dir+"yolov3/yolov3.weights",0);
         confidence_threshold = 0.65;
         tracker = tracker::CreateITrackers();
     }
@@ -42,6 +42,9 @@ namespace VehicleAnalyze
 
     vector<tracker::Tracker> VehicleAnalyze::getTracks()
     {
+        cout<<"gpu_id: "<<gpu_id<<endl;
+        cout<<"frameskip: "<<frameskip<<endl;
+        cout<<"numnull: "<<numnull<<endl;
         vector<tracker::Tracker> trackers;
         Mat frame;
         int null_num = 0;
